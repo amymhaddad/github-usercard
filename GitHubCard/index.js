@@ -3,33 +3,18 @@
            https://api.github.com/users/<your name>
 */
 
-const axios = require('axios');
+const axios = require('axios').default;
 
-//Q1 - shouldn't I store the response into an object so I can easily use it when creating component?
-let gitHubData;
-//Q2 - Did I define the CDN library correctly in index file? Get an error that document is not defined
-//Q3 - No img key listed in my github request data
-
-
-const getApi = () => {
-  //axios is a function that i'm defining. THen I need to call it somehow hwihc is what I do below
-  return (axios.get('https://api.github.com/users/amymhaddad')
-    .then(function(response) {
-      this.response = response.data
-      return response
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  )
+function userInfo(data) {
+  let details = [];
+  //run console.log so I can see the data 
+  // console.log(data)
+  return details[data];
 }
 
-
-//I need to wait for the function to run so I can get the response 
-// getApi()
-//   .then(response => passDatatoHTML(response))
-
- 
+//fetch is the same as axios
+const userDetails = axios.get('https://api.github.com/users/amymhaddad');
+userDetails.then(userInfo); 
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -55,13 +40,14 @@ const getApi = () => {
 
 const followersArray = [];
 
-// const div = document.createElement("div");
-// div.className = "card";
+//remember to run this in the broswer (ie index.html)
+const div = document.createElement("div");
+div.className = "card";
 
 
-// const image = document.createElement("img");
-// image.setAttribute()
-// div.appendChild(image);
+const image = document.createElement("img");
+image.setAttribute()
+div.appendChild(image);
 
 
 
