@@ -5,17 +5,23 @@
 
 const axios = require('axios').default;
 
-function userInfo(data) {
-  let details = [];
-  //run console.log so I can see the data 
-  // console.log(data)
-  return details[data];
+
+function createComponment(data) {
+  console.log(data);
+  // do whatever you like createElement, etc
+
 }
 
-//fetch is the same as axios
-const userDetails = axios.get('https://api.github.com/users/amymhaddad');
-userDetails.then(userInfo); 
+axios.get('https://api.github.com/users/amymhaddad')
+  .then(function (response) {
+    createComponment(response.data);
+  })
+  .catch(function (error) {
+    console.log(error.response.status);
+  })
 
+ 
+ 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -38,16 +44,16 @@ userDetails.then(userInfo);
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
-//remember to run this in the broswer (ie index.html)
-const div = document.createElement("div");
-div.className = "card";
+// //remember to run this in the broswer (ie index.html)
+// const div = document.createElement("div");
+// div.className = "card";
 
 
-const image = document.createElement("img");
-image.setAttribute()
-div.appendChild(image);
+// const image = document.createElement("img");
+// image.setAttribute()
+// div.appendChild(image);
 
 
 
