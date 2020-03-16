@@ -3,25 +3,57 @@
            https://api.github.com/users/<your name>
 */
 
-const axios = require('axios').default;
+
+//For friends: loop through severl people and passe them through teh data 
+//Do first two bullets 
+  
 
 
 function createComponment(data) {
-  console.log(data);
-  // do whatever you like createElement, etc
+//  console.log(data);
+ 
+ const cards = document.querySelector(".cards");
+  
+ const div = document.createElement("div");
+ div.className = "card";
+
+ const image = document.createElement("image");
+ image.setAttribute("src", data.url);
+  
+ div.appendChild(image)
+ cards.appendChild(div);
 
 }
 
-axios.get('https://api.github.com/users/amymhaddad')
-  .then(function (response) {
-    createComponment(response.data);
-  })
-  .catch(function (error) {
-    console.log(error.response.status);
-  })
 
  
+axios.get('https://api.github.com/users/amymhaddad')
+ .then(function (response) {
+   createComponment(response.data);
+ })
+ .catch(function (error) {
+   console.log(error.response.status);
+ })
+
  
+//  <div class="card">
+//   <img src={image url of user} />
+//   <div class="card-info">
+//     <h3 class="name">{users name}</h3>
+//     <p class="username">{users user name}</p>
+//     <p>Location: {users location}</p>
+//     <p>Profile:  
+//       <a href={address to users github page}>{address to users github page}</a>
+//     </p>
+//     <p>Followers: {users followers count}</p>
+//     <p>Following: {users following count}</p>
+//     <p>Bio: {users bio}</p>
+//   </div>
+// </div>
+
+
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
