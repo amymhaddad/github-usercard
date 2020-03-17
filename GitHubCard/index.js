@@ -43,11 +43,12 @@ function createComponment(data) {
 
  //Get this link to show -- use inspect tools 
  const profile = document.createElement("p");
+ profile.innerText = "Profile: ";
  const link = document.createElement("a");
- link.setAttribute = (`href`, `${data.url}`)
- console.log(data.url)
-
- profile.innerText = `Profile: ${link}`;
+ link.innerText = 'amymhaddad'
+ link.setAttribute('href', `${data.html_url}`);
+  
+//  profile.innerText = `Profile: ${link}`;
 
  profile.appendChild(link);
  cardInfoDiv.appendChild(profile);
