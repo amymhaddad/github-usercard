@@ -18,10 +18,9 @@ function createComponment(data) {
  cardDiv.className = "card";
  cards.appendChild(cardDiv);
 
- //Get image to show
- const image = document.createElement("image");
- image.setAttribute("src", `${data.avatar_url}`);
- cardDiv.appendChild(image)
+ const img = document.createElement("img");
+ img.setAttribute("src", `${data.avatar_url}`);
+ cardDiv.appendChild(img)
  
  const cardInfoDiv = document.createElement("div");
  cardInfoDiv.className = "card-info";
@@ -45,7 +44,9 @@ function createComponment(data) {
  //Get this link to show -- use inspect tools 
  const profile = document.createElement("p");
  const link = document.createElement("a");
- link.setAttribute = ("href", `${data.url}`)
+ link.setAttribute = (`href`, `${data.url}`)
+ console.log(data.url)
+
  profile.innerText = `Profile: ${link}`;
 
  profile.appendChild(link);
