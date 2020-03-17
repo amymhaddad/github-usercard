@@ -18,29 +18,36 @@ function createComponment(data) {
  cardDiv.className = "card";
  cards.appendChild(cardDiv);
 
+ //Get image to show
  const image = document.createElement("image");
- image.setAttribute("src", data.url);
+ image.setAttribute("src", `${data.avatar_url}`);
  cardDiv.appendChild(image)
  
-
  const cardInfoDiv = document.createElement("div");
  cardInfoDiv.className = "card-info";
  cardDiv.appendChild(cardInfoDiv);
 
  const h3 = document.createElement("h3")
  h3.className = "name";
- h3.innerText = `${data.}`
+ h3.innerText = `${data.name}`
  cardInfoDiv.appendChild(h3);
+
 
  const name = document.createElement("p");
  name.className = "username";
+ name.innerText = `${data.login}`
  cardInfoDiv.appendChild(name);
   
  const location = document.createElement("p");
+ location.innerText = `Location: ${data.location}`
  cardInfoDiv.appendChild(location);
 
+ //Get this link to show -- use inspect tools 
  const profile = document.createElement("p");
  const link = document.createElement("a");
+ link.setAttribute = ("href", `${data.url}`)
+ profile.innerText = `Profile: ${link}`;
+
  profile.appendChild(link);
  cardInfoDiv.appendChild(profile);
 
@@ -55,7 +62,6 @@ function createComponment(data) {
 }
 
 
-const axios = require('axios').default;
 
 axios.get('https://api.github.com/users/amymhaddad')
  .then(function (response) {
@@ -66,12 +72,7 @@ axios.get('https://api.github.com/users/amymhaddad')
  })
 
  
-//  <div class="card">
-//   <img src={image url of user} />
-//   <div class="card-info">
-//     <h3 class="name">{users name}</h3>
-//     <p class="username">{users user name}</p>
-//     <p>Location: {users location}</p>
+//     
 //     <p>Profile:  
 //       <a href={address to users github page}>{address to users github page}</a>
 //     </p>
