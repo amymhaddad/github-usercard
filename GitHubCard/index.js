@@ -8,66 +8,82 @@
 //Do first two bullets 
   
 
-
-function createComponment(data) {
- console.log(data);
- 
- const cards = document.querySelector(".cards");
-  
- const cardDiv = document.createElement("div");
- cardDiv.className = "card";
- cards.appendChild(cardDiv);
-
- const img = document.createElement("img");
- img.setAttribute("src", `${data.avatar_url}`);
- cardDiv.appendChild(img)
- 
- const cardInfoDiv = document.createElement("div");
- cardInfoDiv.className = "card-info";
- cardDiv.appendChild(cardInfoDiv);
-
- const h3 = document.createElement("h3")
- h3.className = "name";
- h3.innerText = `${data.name}`
- cardInfoDiv.appendChild(h3);
-
-
- const name = document.createElement("p");
- name.className = "username";
- name.innerText = `${data.login}`
- cardInfoDiv.appendChild(name);
-  
- const location = document.createElement("p");
- location.innerText = `Location: ${data.location}`
- cardInfoDiv.appendChild(location);
-
- const profile = document.createElement("p");
- profile.innerText = "Profile: ";
- const link = document.createElement("a");
- link.innerText = 'amymhaddad'
- link.setAttribute('href', `${data.html_url}`);
- profile.appendChild(link);
- cardInfoDiv.appendChild(profile);
-
- const followers = document.createElement("p");
- followers.innerText = `Followers: ${data.followers}`;
- cardInfoDiv.appendChild(followers);
-
- const following = document.createElement("p");
- following.innerText = `Following: ${data.following}`
- cardInfoDiv.appendChild(following);
-
- const bio = document.createElement("p");
- if (data.bio == null) {
-   bio.innerText = "Bio: I'm a programmer."
- } 
- else {
-   bio.innerText = `Bio: ${data.bio}`
- }
-
- cardInfoDiv.appendChild(bio);
+function createHeader(title){
+  const h3 = document.createElement("h3")
+  h3.className = "name";
+  h3.innerText = title;
+  return h3
 }
 
+function createParagraph(text, fieldName, className="") {
+  const p = document.createElement("p");
+  p.className = className;
+  p.innerText = `${fieldName}: ${text}`;
+  return p
+}
+
+function createLink(url, text) {
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.innerText = text;
+  return link;
+}
+
+
+function createUserCard(data) {
+  const cardInfoDiv = document.createElement("div");
+  cardInfoDiv.className = "card-info";
+
+  const header = createHeader(data.name)
+  cardInfoDiv.appendChild(header);
+
+  const p1 = createParagraph(data.login, "Username", className="username")
+  cardInfoDiv.appendChild(p1)
+
+  const p2 = createParagraph(data.location, "Location")
+  cardInfoDiv.appendChild(p2)
+
+  const link = createLink(data.html_url, data.login);
+  const p3 = createParagraph(link, "Profile")
+  p3.appendChild(link)
+  cardInfoDiv.appendChild(p3);
+
+  const p4 = createParagraph(data.followers,"Followers");
+  cardInfoDiv.appendChild(p4);
+
+  const p5 = createParagraph(data.following, "Following");
+  cardInfoDiv.appendChild(p5);
+
+  // const bio = document.createElement("p");
+  // if (data.bio == null) {
+  //   bio.innerText = "Bio: I'm a programmer."
+  // } 
+  // else {
+  //   bio.innerText = `Bio: ${data.bio}`
+  // }
+
+  // cardInfoDiv.appendChild(bio);
+  return cardInfoDiv;
+
+  }
+
+
+function createComponment(data) {
+
+  const cards = document.querySelector(".cards");
+  
+  const cardDiv = document.createElement("div");
+  cardDiv.className = "card";
+  cards.appendChild(cardDiv);
+ 
+  const img = document.createElement("img");
+  img.setAttribute("src", `${data.avatar_url}`);
+  cardDiv.appendChild(img)
+
+  const newUserCard = createUserCard(data)
+  cardDiv.appendChild(newUserCard)
+  
+}
 
 
 axios.get('https://api.github.com/users/amymhaddad')
