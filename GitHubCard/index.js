@@ -10,23 +10,53 @@
 
 
 function createComponment(data) {
-//  console.log(data);
+ console.log(data);
  
  const cards = document.querySelector(".cards");
   
- const div = document.createElement("div");
- div.className = "card";
+ const cardDiv = document.createElement("div");
+ cardDiv.className = "card";
+ cards.appendChild(cardDiv);
 
  const image = document.createElement("image");
  image.setAttribute("src", data.url);
-  
- div.appendChild(image)
- cards.appendChild(div);
+ cardDiv.appendChild(image)
+ 
 
+ const cardInfoDiv = document.createElement("div");
+ cardInfoDiv.className = "card-info";
+ cardDiv.appendChild(cardInfoDiv);
+
+ const h3 = document.createElement("h3")
+ h3.className = "name";
+ h3.innerText = `${data.}`
+ cardInfoDiv.appendChild(h3);
+
+ const name = document.createElement("p");
+ name.className = "username";
+ cardInfoDiv.appendChild(name);
+  
+ const location = document.createElement("p");
+ cardInfoDiv.appendChild(location);
+
+ const profile = document.createElement("p");
+ const link = document.createElement("a");
+ profile.appendChild(link);
+ cardInfoDiv.appendChild(profile);
+
+ const followers = document.createElement("p");
+ cardInfoDiv.appendChild(followers);
+
+ const following = document.createElement("p");
+ cardInfoDiv.appendChild(following);
+
+ const bio = document.createElement("p");
+ cardInfoDiv.appendChild(bio);
 }
 
 
- 
+const axios = require('axios').default;
+
 axios.get('https://api.github.com/users/amymhaddad')
  .then(function (response) {
    createComponment(response.data);
