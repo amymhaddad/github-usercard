@@ -41,25 +41,30 @@ function createComponment(data) {
  location.innerText = `Location: ${data.location}`
  cardInfoDiv.appendChild(location);
 
- //Get this link to show -- use inspect tools 
  const profile = document.createElement("p");
  profile.innerText = "Profile: ";
  const link = document.createElement("a");
  link.innerText = 'amymhaddad'
  link.setAttribute('href', `${data.html_url}`);
-  
-//  profile.innerText = `Profile: ${link}`;
-
  profile.appendChild(link);
  cardInfoDiv.appendChild(profile);
 
  const followers = document.createElement("p");
+ followers.innerText = `Followers: ${data.followers}`;
  cardInfoDiv.appendChild(followers);
 
  const following = document.createElement("p");
+ following.innerText = `Following: ${data.following}`
  cardInfoDiv.appendChild(following);
 
  const bio = document.createElement("p");
+ if (data.bio == null) {
+   bio.innerText = "Bio: I'm a programmer."
+ } 
+ else {
+   bio.innerText = `Bio: ${data.bio}`
+ }
+
  cardInfoDiv.appendChild(bio);
 }
 
@@ -74,15 +79,6 @@ axios.get('https://api.github.com/users/amymhaddad')
  })
 
  
-//     
-//     <p>Profile:  
-//       <a href={address to users github page}>{address to users github page}</a>
-//     </p>
-//     <p>Followers: {users followers count}</p>
-//     <p>Following: {users following count}</p>
-//     <p>Bio: {users bio}</p>
-//   </div>
-// </div>
 
 
 
