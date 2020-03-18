@@ -63,7 +63,6 @@ function createUserCard(data) {
 
 
 function createComponment(data) {
-  console.log(data)
   const cards = document.querySelector(".cards");
   
   const cardDiv = document.createElement("div");
@@ -76,19 +75,56 @@ function createComponment(data) {
 
   const newUserCard = createUserCard(data)
   cardDiv.appendChild(newUserCard)
+
 }
 
 
-axios.get('https://api.github.com/users/amymhaddad')
- .then(function (response) {
-   createComponment(response.data);
- })
- .catch(function (error) {
-   console.log(error.response.status);
- })
+// function getFollowers(people)
+//   const peopleArray = []; 
+//   for (person in people) {
+//     peopleArray.push(person);
+//    return peopleArray;
+//   }
+
+// function accessOthersData(data) {
+//   console.log(data)
+// }
+
+function accessUserData(data) {
+  // console.log(data)
+  createComponment(data) 
+}
+
+const peopleArray = ["tetondan", "justsml", "amymhaddad"]; 
+  
+
+peopleArray.forEach(name => {
+  const url = `https://api.github.com/users/${name}`
+  axios.get(url)
+  .then(function (response) {
+    accessUserData(response.data);
+  })
+  
+  .catch(function (error) {
+    console.log(error.response.status);
+  })
+
+
+})
+
+
+
+// axios.get(url)
+//  .then(function (response) {
+//   accessUserData(response.data);
+//  })
+ 
+//  .catch(function (error) {
+//    console.log(error.response.status);
+//  })
 
  
-
+//  'https://api.github.com/users/$`{}`/following'
 
 
 
@@ -114,16 +150,6 @@ axios.get('https://api.github.com/users/amymhaddad')
           user, and adding that card to the DOM.
 */
 
-// const followersArray = [];
-
-// //remember to run this in the broswer (ie index.html)
-// const div = document.createElement("div");
-// div.className = "card";
-
-
-// const image = document.createElement("img");
-// image.setAttribute()
-// div.appendChild(image);
 
 
 
