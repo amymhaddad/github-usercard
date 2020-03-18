@@ -4,8 +4,6 @@
 */
 
 
-// import axios from 'axios';
-
 
 function createHeader(title){
   const h3 = document.createElement("h3")
@@ -79,49 +77,53 @@ function createComponment(data) {
 }
 
 
-// function getFollowers(people)
-//   const peopleArray = []; 
-//   for (person in people) {
-//     peopleArray.push(person);
-//    return peopleArray;
-//   }
-
-// function accessOthersData(data) {
-//   console.log(data)
-// }
+function accessOthersData(people) {
+  for(person in people) {
+    createComponment(person)
+  }
+}
 
 function accessUserData(data) {
   // console.log(data)
   createComponment(data) 
+  accessOthersData(data.following_url)
 }
 
-const peopleArray = ["tetondan", "justsml", "amymhaddad"]; 
+
+
+//Making the url dynamic 
+//Tryign to use the console to see my data -- why doesn't it show up?
+
+// const peopleArray = ["tetondan", "justsml", "amymhaddad"]; 
+// peopleArray.forEach(name => {
+//   const url = `https://api.github.com/users/${name}`
+//   axios.get(url)
+//   .then(function (response) {
+//     accessUserData(response.data);
+//   })
   
-
-peopleArray.forEach(name => {
-  const url = `https://api.github.com/users/${name}`
-  axios.get(url)
-  .then(function (response) {
-    accessUserData(response.data);
-  })
-  
-  .catch(function (error) {
-    console.log(error.response.status);
-  })
+//   .catch(function (error) {
+//     console.log(error.response.status);
+//   })
 
 
-})
+// })
 
 
 
-// axios.get(url)
+
+axios.get("https://api.github.com/users/amymhaddad")
+ .then(function (response) {
+  accessUserData(response.data);
+ })
+
 //  .then(function (response) {
-//   accessUserData(response.data);
+//    accessOthersData(response.data.following_url);
 //  })
  
-//  .catch(function (error) {
-//    console.log(error.response.status);
-//  })
+ .catch(function (error) {
+   console.log(error.response.status);
+ })
 
  
 //  'https://api.github.com/users/$`{}`/following'
