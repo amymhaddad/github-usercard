@@ -15,10 +15,10 @@ function createHeader(title){
 function createParagraph(text, fieldName, className="") {
   const p = document.createElement("p");
   p.className = className;
-
   if (text == null) {
       p.innerText = `${fieldName}: No data available`
     } 
+    
   // if (text.startsWith("http")) {
   //   p.innerText = `${fieldName}:`;
   //   }
@@ -76,57 +76,52 @@ function createComponment(data) {
 
 }
 
+//Create a new function that send api request
+function getOthersData(url){
 
-function accessOthersData(people) {
-  for(person in people) {
-    createComponment(person)
-  }
+}
+
+//I have a different data type so I need to account for that for this second api call 
+//Update the values I pass into the response data 
+function accessOthersData(url) {
+  axios.get(url)
+    .then(function (response) {
+      const followers = response.data
+      
+      followers.forEach(person => {
+        getOthersData(person.url);
+      })
+      // console.log(followers) do a for each to send each object to create component 
+      // f createComponment(response.data)
+  })
+
+  .catch(function (error) {
+    console.log(error.response.status);
+  })
+ 
 }
 
 function accessUserData(data) {
-  // console.log(data)
   createComponment(data) 
-  accessOthersData(data.following_url)
+
+  //fuction takes the url and makes another API call
+  //DO NOT hard code -- data.following_url
+  accessOthersData('https://api.github.com/users/amymhaddad/following')
+
 }
-
-
-
-//Making the url dynamic 
-//Tryign to use the console to see my data -- why doesn't it show up?
-
-// const peopleArray = ["tetondan", "justsml", "amymhaddad"]; 
-// peopleArray.forEach(name => {
-//   const url = `https://api.github.com/users/${name}`
-//   axios.get(url)
-//   .then(function (response) {
-//     accessUserData(response.data);
-//   })
-  
-//   .catch(function (error) {
-//     console.log(error.response.status);
-//   })
-
-
-// })
-
 
 
 
 axios.get("https://api.github.com/users/amymhaddad")
  .then(function (response) {
-  accessUserData(response.data);
+   accessUserData(response.data);
  })
 
-//  .then(function (response) {
-//    accessOthersData(response.data.following_url);
-//  })
- 
  .catch(function (error) {
    console.log(error.response.status);
  })
 
- 
-//  'https://api.github.com/users/$`{}`/following'
+
 
 
 
