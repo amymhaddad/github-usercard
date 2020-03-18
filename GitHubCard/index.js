@@ -4,9 +4,8 @@
 */
 
 
-//For friends: loop through severl people and passe them through teh data 
-//Do first two bullets 
-  
+// import axios from 'axios';
+
 
 function createHeader(title){
   const h3 = document.createElement("h3")
@@ -18,7 +17,17 @@ function createHeader(title){
 function createParagraph(text, fieldName, className="") {
   const p = document.createElement("p");
   p.className = className;
-  p.innerText = `${fieldName}: ${text}`;
+
+  if (text == null) {
+      p.innerText = `${fieldName}: No data available`
+    } 
+  // if (text.startsWith("http")) {
+  //   p.innerText = `${fieldName}:`;
+  //   }
+  else {
+      p.innerText = `${fieldName}: ${text}`;
+    }
+  
   return p
 }
 
@@ -35,41 +44,26 @@ function createUserCard(data) {
   cardInfoDiv.className = "card-info";
 
   const header = createHeader(data.name)
-  cardInfoDiv.appendChild(header);
 
   const p1 = createParagraph(data.login, "Username", className="username")
-  cardInfoDiv.appendChild(p1)
-
   const p2 = createParagraph(data.location, "Location")
-  cardInfoDiv.appendChild(p2)
 
   const link = createLink(data.html_url, data.login);
   const p3 = createParagraph(link, "Profile")
   p3.appendChild(link)
-  cardInfoDiv.appendChild(p3);
 
   const p4 = createParagraph(data.followers,"Followers");
-  cardInfoDiv.appendChild(p4);
-
   const p5 = createParagraph(data.following, "Following");
-  cardInfoDiv.appendChild(p5);
+  const p6 = createParagraph(data.bio, "Bio")
 
-  // const bio = document.createElement("p");
-  // if (data.bio == null) {
-  //   bio.innerText = "Bio: I'm a programmer."
-  // } 
-  // else {
-  //   bio.innerText = `Bio: ${data.bio}`
-  // }
-
-  // cardInfoDiv.appendChild(bio);
+  const allElements = [header, p1, p2, p3, p4, p5, p6]
+  allElements.forEach(element => cardInfoDiv.appendChild(element))
   return cardInfoDiv;
-
   }
 
 
 function createComponment(data) {
-
+  console.log(data)
   const cards = document.querySelector(".cards");
   
   const cardDiv = document.createElement("div");
@@ -82,7 +76,6 @@ function createComponment(data) {
 
   const newUserCard = createUserCard(data)
   cardDiv.appendChild(newUserCard)
-  
 }
 
 
