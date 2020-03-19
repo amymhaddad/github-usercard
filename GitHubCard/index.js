@@ -76,43 +76,67 @@ function createComponment(data) {
 
 }
 
+
+
+
+// function eachUser(data){
+//   console.log(data);
+// }
+
+
+
+
 //Create a new function that send api request
-function getOthersData(data){
-  //one more api call 
-}
+function getPersonData(data){
+  //This function GETS all of the data for all of the users -- a list of objects. Cycle through each of these objects and find the url associated with each user
+  //Use this user url to make a GET requset to GET the data associated iwth the user and send it to make a componenet 
 
-
-
-
-function accessOthersData(following_url) {
-  //update the following_url to remove the part in {}
-   console.log(following_url)
-
-    
-   //the call below is a call the following url for Amy 
-  // axios.get(following_url)
   
+  let url = data.forEach(user => {
+    axios.get(user.url) 
+    
+    .then(function (response){
+          createComponment(response.data);
+      })
+    
+  });
+    
+ 
+  
+  //   console.log(user.url)
+    // axios.get(user.url) 
+    
   //   .then(function (response) {
-  //     //Iterate through each of these objects and pass the url for each following to funvtion above which will make another API call to get the user's data.
-  // //Add a .then() in the function above to create a componenet for the user's data
-      
-  //   })
+  //     createComponment(response);
+  // })
   //   .catch(function (error) {
-  //       console.log(error.response.status);
-  //     })
+  //     console.log(error.response.status);
+  //   })
+  // })
+
 }
 
- 
+
+
+//This function receives the URL of the people that Amy follows and makes an API call to get all of the followers' data 
+function accessOthersData(peopleData) {  
+  
+  axios.get(peopleData)
+    .then(function (response) {
+      getPersonData(response.data)
+    })
+    .catch(function (error) {
+        console.log(error.response.status);
+      })
+}
 
 
 function accessUserData(data) {
   createComponment(data) 
 
-  const following = data.following_url
-  const following_url = following.slice(0, following.indexOf("{"))
-  //fuction takes the url and makes another API call 'https://api.github.com/users/amymhaddad/following
-  accessOthersData(following_url)
-
+  const following_url = data.following_url
+  const peopleIFollow = following_url.slice(0, following_url.indexOf("{"))
+  accessOthersData(peopleIFollow)
 }
 
 
