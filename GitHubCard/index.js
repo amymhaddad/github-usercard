@@ -77,48 +77,49 @@ function createComponment(data) {
 }
 
 //Create a new function that send api request
-function getOthersData(url){
-
+function getOthersData(data){
+  //one more api call 
 }
 
-//I have a different data type so I need to account for that for this second api call 
-//Update the values I pass into the response data 
-function accessOthersData(url) {
-  axios.get(url)
+
+
+
+function accessOthersData(following_url) {
+  //update the following_url to remove the part in {}
+   console.log(following_url)
+
+   //the call below is a call the following url for Amy 
+  axios.get(following_url)
+  //When console.log I should get a list of objects of the people I follow
+  
     .then(function (response) {
-      const followers = response.data
+      //Iterate through each of these objects and pass the url for each following to funvtion above which will make another API call to get the user's data.
+  //Add a .then() in the function above to create a componenet for the user's data
       
-      followers.forEach(person => {
-        getOthersData(person.url);
+    })
+    .catch(function (error) {
+        console.log(error.response.status);
       })
-      // console.log(followers) do a for each to send each object to create component 
-      // f createComponment(response.data)
-  })
-
-  .catch(function (error) {
-    console.log(error.response.status);
-  })
- 
 }
+
+ 
+
 
 function accessUserData(data) {
   createComponment(data) 
 
-  //fuction takes the url and makes another API call
-  //DO NOT hard code -- data.following_url
-  accessOthersData('https://api.github.com/users/amymhaddad/following')
+  //fuction takes the url and makes another API call 'https://api.github.com/users/amymhaddad/following
+  accessOthersData(data.following_url)
 
 }
-
 
 
 axios.get("https://api.github.com/users/amymhaddad")
  .then(function (response) {
    accessUserData(response.data);
  })
-
  .catch(function (error) {
-   console.log(error.response.status);
+   console.log(error);
  })
 
 
