@@ -88,18 +88,18 @@ function accessOthersData(following_url) {
   //update the following_url to remove the part in {}
    console.log(following_url)
 
+    
    //the call below is a call the following url for Amy 
-  axios.get(following_url)
-  //When console.log I should get a list of objects of the people I follow
+  // axios.get(following_url)
   
-    .then(function (response) {
-      //Iterate through each of these objects and pass the url for each following to funvtion above which will make another API call to get the user's data.
-  //Add a .then() in the function above to create a componenet for the user's data
+  //   .then(function (response) {
+  //     //Iterate through each of these objects and pass the url for each following to funvtion above which will make another API call to get the user's data.
+  // //Add a .then() in the function above to create a componenet for the user's data
       
-    })
-    .catch(function (error) {
-        console.log(error.response.status);
-      })
+  //   })
+  //   .catch(function (error) {
+  //       console.log(error.response.status);
+  //     })
 }
 
  
@@ -108,8 +108,10 @@ function accessOthersData(following_url) {
 function accessUserData(data) {
   createComponment(data) 
 
+  const following = data.following_url
+  const following_url = following.slice(0, following.indexOf("{"))
   //fuction takes the url and makes another API call 'https://api.github.com/users/amymhaddad/following
-  accessOthersData(data.following_url)
+  accessOthersData(following_url)
 
 }
 
