@@ -77,50 +77,18 @@ function createComponment(data) {
 }
 
 
-
-
-// function eachUser(data){
-//   console.log(data);
-// }
-
-
-
-
-//Create a new function that send api request
 function getPersonData(data){
-  //This function GETS all of the data for all of the users -- a list of objects. Cycle through each of these objects and find the url associated with each user
-  //Use this user url to make a GET requset to GET the data associated iwth the user and send it to make a componenet 
-
-  
   let url = data.forEach(user => {
     axios.get(user.url) 
-    
     .then(function (response){
           createComponment(response.data);
       })
-    
   });
-    
- 
-  
-  //   console.log(user.url)
-    // axios.get(user.url) 
-    
-  //   .then(function (response) {
-  //     createComponment(response);
-  // })
-  //   .catch(function (error) {
-  //     console.log(error.response.status);
-  //   })
-  // })
 
 }
 
 
-
-//This function receives the URL of the people that Amy follows and makes an API call to get all of the followers' data 
-function accessOthersData(peopleData) {  
-  
+function accessOthersData(peopleData) {    
   axios.get(peopleData)
     .then(function (response) {
       getPersonData(response.data)
@@ -133,7 +101,7 @@ function accessOthersData(peopleData) {
 
 function accessUserData(data) {
   createComponment(data) 
-
+  console.log(data)
   const following_url = data.following_url
   const peopleIFollow = following_url.slice(0, following_url.indexOf("{"))
   accessOthersData(peopleIFollow)
