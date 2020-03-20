@@ -25,7 +25,6 @@ function createParagraph(text, fieldName, className="") {
   else {
       p.innerText = `${fieldName}: ${text}`;
     }
-  
   return p
 }
 
@@ -34,6 +33,17 @@ function createLink(url, text) {
   link.setAttribute("href", url);
   link.innerText = text;
   return link;
+}
+
+function createButton() {
+  const button = document.createElement("button");
+  button.innerText = "Learn More";
+  button.style.height = "30px";
+  button.style.width = "75px";
+  button.style.borderRadius = "6px";
+  button.style.fontWeight = "bold";
+  button.style.cursor = "pointer"
+  return button;
 }
 
 
@@ -54,7 +64,9 @@ function createUserCard(data) {
   const p5 = createParagraph(data.following, "Following");
   const p6 = createParagraph(data.bio, "Bio")
 
-  const allElements = [header, p1, p2, p3, p4, p5, p6]
+  const button = createButton();
+
+  const allElements = [header, p1, p2, p3, p4, p5, p6, button]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
   return cardInfoDiv;
   }
