@@ -47,6 +47,21 @@ function createButton() {
 }
 
 
+//see if height gets added to div
+//add EL to listne for clicks; if clicked add a new class to expand the height of the div to 100px
+//Add this class to the article div class list 
+
+function createArticle() {
+  const articleDiv = document.createElement("div")
+  articleDiv.className = "article";
+  articleDiv.style.height = "25px;"
+  
+  const p = document.createElement("p");
+  p.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  articleDiv.appendChild(p);
+  return articleDiv;
+}
+
 function createUserCard(data) {
   const cardInfoDiv = document.createElement("div");
   cardInfoDiv.className = "card-info";
@@ -63,10 +78,10 @@ function createUserCard(data) {
   const p4 = createParagraph(data.followers,"Followers");
   const p5 = createParagraph(data.following, "Following");
   const p6 = createParagraph(data.bio, "Bio")
-
   const button = createButton();
+  const p7 = createArticle();
 
-  const allElements = [header, p1, p2, p3, p4, p5, p6, button]
+  const allElements = [header, p1, p2, p3, p4, p5, p6, button, p7]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
   return cardInfoDiv;
   }
@@ -130,6 +145,17 @@ axios.get("https://api.github.com/users/amymhaddad")
 
 
 
+// const allCards = document.querySelectorAll(".card");
+// console.log(allCards)
+// for (let card of allCards) {
+//   card.style.height = "10px";
+// }
+
+
+// const cardContainers = document.querySelector(".cards")
+// for (let card of cardContainers) {
+//   card.style.height = "100px"
+// }
 
 
 
