@@ -76,8 +76,17 @@ function createUserCard(data) {
 
   button.addEventListener("click", function(event){
     const learnMore = event.target.previousSibling;
-    learnMore.classList.toggle("learn-more")
-    // button.value = "Close";
+  
+    learnMore.classList.toggle("learn-more");
+    learnMore.nextSibling.innerText = "Close";
+    
+    // if (learnMore.className.length > 0){
+    //   learnMore.nextSibling.innerText = "Close";
+    // }
+    // else {
+    //   learnMore.nextSibling.innerText = "Learn More";
+    // }
+  
   });
   return cardInfoDiv;
   }
