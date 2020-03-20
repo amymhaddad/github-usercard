@@ -4,7 +4,6 @@
 */
 
 
-
 function createHeader(title){
   const h3 = document.createElement("h3")
   h3.className = "name";
@@ -46,26 +45,19 @@ function createButton() {
   return button;
 }
 
-
-//see if height gets added to div
-//add EL to listne for clicks; if clicked add a new class to expand the height of the div to 100px
-//Add this class to the article div class list 
-
 function createArticle() {
-  const articleDiv = document.createElement("div")
-  articleDiv.className = "article";
-  articleDiv.style.height = "25px;"
-  
+  const newDiv = document.createElement("div")
+  newDiv.className = "article"
   const p = document.createElement("p");
   p.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  articleDiv.appendChild(p);
-  return articleDiv;
+  newDiv.appendChild(p)
+  return newDiv;
 }
 
 function createUserCard(data) {
   const cardInfoDiv = document.createElement("div");
   cardInfoDiv.className = "card-info";
-
+  
   const header = createHeader(data.name)
 
   const p1 = createParagraph(data.login, "Username", className="username")
@@ -83,6 +75,16 @@ function createUserCard(data) {
 
   const allElements = [header, p1, p2, p3, p4, p5, p6, button, p7]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
+
+  //button is coming back as undefined
+  //confirm element to add overflow:hidden -- I want the text to be hidden UNLESS i get a click
+  //Trouble hiding the text -- tried creating own div for the p and creating p by itself
+  button.addEventListener("click", function(event){
+    const parentDiv = event.target.parentElement;
+    debugger
+    parentDiv.classList.toggle("article-open");
+
+  });
   return cardInfoDiv;
   }
 
@@ -142,6 +144,12 @@ axios.get("https://api.github.com/users/amymhaddad")
  .catch(function (error) {
    console.log(error);
  })
+
+
+
+ //Need to put a height on the size of the card class -- but having trouble getting this to work properly
+// const allCards = document.querySelectorAll(".cards"); 
+// const button = document.querySelectorAll
 
 
 
