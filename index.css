@@ -123,12 +123,7 @@ body {
   margin: 3px 0 10px;
 }
 
-
-.article-open {
-  height: 350px;
+.learn-more {
+  display: none;
 }
-
-/* .article {
-  height: 50px;
-  overflow: hidden;
-} */
+ 

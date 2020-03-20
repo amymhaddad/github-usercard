@@ -46,12 +46,10 @@ function createButton() {
 }
 
 function createArticle() {
-  const newDiv = document.createElement("div")
-  newDiv.className = "article"
   const p = document.createElement("p");
+  p.className = "learn-more";
   p.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  newDiv.appendChild(p)
-  return newDiv;
+  return p;
 }
 
 function createUserCard(data) {
@@ -70,20 +68,16 @@ function createUserCard(data) {
   const p4 = createParagraph(data.followers,"Followers");
   const p5 = createParagraph(data.following, "Following");
   const p6 = createParagraph(data.bio, "Bio")
-  const button = createButton();
   const p7 = createArticle();
+  const button = createButton();
 
-  const allElements = [header, p1, p2, p3, p4, p5, p6, button, p7]
+  const allElements = [header, p1, p2, p3, p4, p5, p6, p7, button]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
 
-  //button is coming back as undefined
-  //confirm element to add overflow:hidden -- I want the text to be hidden UNLESS i get a click
-  //Trouble hiding the text -- tried creating own div for the p and creating p by itself
   button.addEventListener("click", function(event){
-    const parentDiv = event.target.parentElement;
-    debugger
-    parentDiv.classList.toggle("article-open");
-
+    const learnMore = event.target.previousSibling;
+    learnMore.classList.toggle("learn-more")
+    // button.value = "Close";
   });
   return cardInfoDiv;
   }
