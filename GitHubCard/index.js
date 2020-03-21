@@ -17,9 +17,7 @@ function createParagraph(text, fieldName, className="") {
   if (text == null) {
       p.innerText = `${fieldName}: No data available`
     } 
-  // else if (text.startsWith("http")) {
-  //   p.innerText = `${fieldName}:`;
-  //   }
+  
   else {
       p.innerText = `${fieldName}: ${text}`;
     }
@@ -86,6 +84,7 @@ function createUserCard(data) {
   const p2 = createParagraph(data.location, "Location")
 
   const link = createLink(data.html_url, data.login);
+  
   const p3 = createParagraph(link, "Profile")
   p3.appendChild(link)
 
@@ -104,7 +103,7 @@ function createUserCard(data) {
   }
   
 
-function createComponment(data) {
+function createUserComponent(data) {
   const cards = document.querySelector(".cards");
 
   const cardDiv = createDiv("card")
@@ -121,19 +120,20 @@ function createComponment(data) {
 
 
 //change the intention of this fucntion to just get an array of user data (ie, an array of object) then 
+//This funciton gets the massive DS and cycles through it, psassing each follower url for another API request 
 function getPersonData(data){
   let url = data.forEach(user => {
     axios.get(user.url) 
     .then(function (response){
-          createComponment(response.data);
+          createUserComponent(response.data);
       })
   });
-
 }
 
-
-function accessOthersData(peopleData) {    
+//change peopleData to followersUrl
+function accessOthersData(peopleData) {
   axios.get(peopleData)
+  //this api call gets the massive DS (2nd endpoint)
     .then(function (response) {
       getPersonData(response.data)
     })
@@ -142,30 +142,27 @@ function accessOthersData(peopleData) {
       })
 }
 
-
-//accessUserData --> rename as mainUserCard() -- only duty is to createComponent(data) for main user
-function accessUserData(data) {
-  //createComponenet -->rename as createUserComponent so that the distinction is clear 
-  createComponment(data) 
+//Purpose: Create a card for the main GH user
+//Recieve the data from the GH API request 
+//and send that data to the createUserComponent() function to make a card for the main user
+function mainUserCard(data) {
+  createUserComponent(data) 
   
-  const following_url = data.following_url.slice(0, data.following_url.indexOf("{"))
-  accessOthersData(following_url)
+  // const following_url = data.following_url.slice(0, data.following_url.indexOf("{"))
+  // accessOthersData(following_url)
 }
 
-
+//Think of this code as my "main" function -- it sends the data that comes in to the correct functions
+//Request to get data for main GH user
+//The data that's returned is an object of GH keys and values
 axios.get("https://api.github.com/users/amymhaddad")
  .then(function (response) {
-   // 1. Create You user card component
+      let userData = response.data;
+      mainUserCard(userData);
+      
+      const peopleFollowingUrl = userData.following_url.slice(0, userData.following_url.indexOf("{"))
+      accessOthersData(peopleFollowingUrl);
 
-   // 2. Create the following_url from the response.data
-      //move const following_url here
-
-
-   // 3. Call another function that retrieves the followers data from the API (2 APIs calls)
-    //move accessOthersData(following_url) here 
-
-   // 4. Call another function that creates all the components for the followers
-   accessUserData(response.data);
  })
  .catch(function (error) {
    console.log(error);
