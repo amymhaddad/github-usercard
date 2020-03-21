@@ -17,8 +17,7 @@ function createParagraph(text, fieldName, className="") {
   if (text == null) {
       p.innerText = `${fieldName}: No data available`
     } 
-    
-  // if (text.startsWith("http")) {
+  // else if (text.startsWith("http")) {
   //   p.innerText = `${fieldName}:`;
   //   }
   else {
@@ -52,12 +51,38 @@ function createArticle() {
   return p;
 }
 
-function createUserCard(data) {
-  const cardInfoDiv = document.createElement("div");
-  cardInfoDiv.className = "card-info";
-  
-  const header = createHeader(data.name)
 
+function createDiv(className) {
+  const div = document.createElement("div");
+  div.className = className;
+  return div;
+}
+
+function createImg(attribute, attributeData) {
+  const img = document.createElement("img");;
+  img.setAttribute(attribute, attributeData);
+  return img
+}
+
+
+function buttonClick(event) {
+  // debugger
+  const learnMore = event.target.previousSibling;
+    
+    learnMore.classList.toggle("learn-more");
+    if (event.target.innerText == "Learn More") {
+      event.target.innerText = "Close";
+    }
+    else {
+      event.target.innerText = "Learn More";
+    }
+}
+
+
+function createUserCard(data) {
+  const cardInfoDiv = createDiv("card-info")
+
+  const header = createHeader(data.name)
   const p1 = createParagraph(data.login, "Username", className="username")
   const p2 = createParagraph(data.location, "Location")
 
@@ -73,35 +98,20 @@ function createUserCard(data) {
 
   const allElements = [header, p1, p2, p3, p4, p5, p6, p7, button]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
-
-
-  // const buttonClick = function(event) 
-
-  button.addEventListener("click", function(event){
-    const learnMore = event.target.previousSibling;
   
-    learnMore.classList.toggle("learn-more");
-
-    if (button.innerText == "Learn More") {
-      button.innerText = "Close";
-    }
-    else {
-      button.innerText = "Learn More";
-    }
-  });
+  button.addEventListener("click", buttonClick);
+  
   return cardInfoDiv;
   }
-
+  
 
 function createComponment(data) {
   const cards = document.querySelector(".cards");
-  
-  const cardDiv = document.createElement("div");
-  cardDiv.className = "card";
+
+  const cardDiv = createDiv("card")
   cards.appendChild(cardDiv);
  
-  const img = document.createElement("img");
-  img.setAttribute("src", `${data.avatar_url}`);
+  const img = createImg("src",`${data.avatar_url}`);
   cardDiv.appendChild(img)
 
   const newUserCard = createUserCard(data)
@@ -150,27 +160,6 @@ axios.get("https://api.github.com/users/amymhaddad")
  })
 
 
-
- //Need to put a height on the size of the card class -- but having trouble getting this to work properly
-// const allCards = document.querySelectorAll(".cards"); 
-// const button = document.querySelectorAll
-
-
-
-// const allCards = document.querySelectorAll(".card");
-// console.log(allCards)
-// for (let card of allCards) {
-//   card.style.height = "10px";
-// }
-
-
-// const cardContainers = document.querySelector(".cards")
-// for (let card of cardContainers) {
-//   card.style.height = "100px"
-// }
-
-
-
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -191,10 +180,6 @@ axios.get("https://api.github.com/users/amymhaddad")
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-
-
-
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
