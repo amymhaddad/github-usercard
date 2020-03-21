@@ -66,7 +66,6 @@ function createImg(attribute, attributeData) {
 
 
 function buttonClick(event) {
-  // debugger
   const learnMore = event.target.previousSibling;
     
     learnMore.classList.toggle("learn-more");
@@ -120,6 +119,8 @@ function createComponment(data) {
 }
 
 
+
+//change the intention of this fucntion to just get an array of user data (ie, an array of object) then 
 function getPersonData(data){
   let url = data.forEach(user => {
     axios.get(user.url) 
@@ -142,17 +143,28 @@ function accessOthersData(peopleData) {
 }
 
 
+//accessUserData --> rename as mainUserCard() -- only duty is to createComponent(data) for main user
 function accessUserData(data) {
+  //createComponenet -->rename as createUserComponent so that the distinction is clear 
   createComponment(data) 
-  console.log(data)
-  const following_url = data.following_url
-  const peopleIFollow = following_url.slice(0, following_url.indexOf("{"))
-  accessOthersData(peopleIFollow)
+  
+  const following_url = data.following_url.slice(0, data.following_url.indexOf("{"))
+  accessOthersData(following_url)
 }
 
 
 axios.get("https://api.github.com/users/amymhaddad")
  .then(function (response) {
+   // 1. Create You user card component
+
+   // 2. Create the following_url from the response.data
+      //move const following_url here
+
+
+   // 3. Call another function that retrieves the followers data from the API (2 APIs calls)
+    //move accessOthersData(following_url) here 
+
+   // 4. Call another function that creates all the components for the followers
    accessUserData(response.data);
  })
  .catch(function (error) {
