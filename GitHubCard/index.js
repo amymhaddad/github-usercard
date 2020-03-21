@@ -74,19 +74,20 @@ function createUserCard(data) {
   const allElements = [header, p1, p2, p3, p4, p5, p6, p7, button]
   allElements.forEach(element => cardInfoDiv.appendChild(element))
 
+
+  // const buttonClick = function(event) 
+
   button.addEventListener("click", function(event){
     const learnMore = event.target.previousSibling;
   
     learnMore.classList.toggle("learn-more");
-    learnMore.nextSibling.innerText = "Close";
-    
-    // if (learnMore.className.length > 0){
-    //   learnMore.nextSibling.innerText = "Close";
-    // }
-    // else {
-    //   learnMore.nextSibling.innerText = "Learn More";
-    // }
-  
+
+    if (button.innerText == "Learn More") {
+      button.innerText = "Close";
+    }
+    else {
+      button.innerText = "Learn More";
+    }
   });
   return cardInfoDiv;
   }
