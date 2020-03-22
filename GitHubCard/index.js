@@ -118,10 +118,7 @@ function createUserComponent(data) {
 }
 
 
-
-//change the intention of this fucntion to just get an array of user data (ie, an array of object) then 
-//This funciton gets the massive DS and cycles through it, psassing each follower url for another API request 
-function getPersonData(data){
+function getFollowingPersonData(data){
   let url = data.forEach(user => {
     axios.get(user.url) 
     .then(function (response){
@@ -130,39 +127,27 @@ function getPersonData(data){
   });
 }
 
-//change peopleData to followersUrl
-function accessOthersData(peopleData) {
-  axios.get(peopleData)
-  //this api call gets the massive DS (2nd endpoint)
+function peopleFollowingData(mainUserPeopleFollowingUrl) {
+  axios.get(mainUserPeopleFollowingUrl)
     .then(function (response) {
-      getPersonData(response.data)
+      getFollowingPersonData(response.data)
     })
     .catch(function (error) {
         console.log(error.response.status);
       })
 }
 
-//Purpose: Create a card for the main GH user
-//Recieve the data from the GH API request 
-//and send that data to the createUserComponent() function to make a card for the main user
 function mainUserCard(data) {
   createUserComponent(data) 
-  
-  // const following_url = data.following_url.slice(0, data.following_url.indexOf("{"))
-  // accessOthersData(following_url)
 }
 
-//Think of this code as my "main" function -- it sends the data that comes in to the correct functions
-//Request to get data for main GH user
-//The data that's returned is an object of GH keys and values
 axios.get("https://api.github.com/users/amymhaddad")
  .then(function (response) {
-      let userData = response.data;
-      mainUserCard(userData);
+      let mainUserData = response.data;
+      mainUserCard(mainUserData);
       
-      const peopleFollowingUrl = userData.following_url.slice(0, userData.following_url.indexOf("{"))
-      accessOthersData(peopleFollowingUrl);
-
+      const mainUserPeopleFollowingUrl = mainUserData.following_url.slice(0, mainUserData.following_url.indexOf("{"))
+      peopleFollowingData(mainUserPeopleFollowingUrl);
  })
  .catch(function (error) {
    console.log(error);
