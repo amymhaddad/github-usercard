@@ -19,7 +19,7 @@ function createParagraph(text, fieldName, className="") {
     } 
   
   else {
-      p.innerText = `${fieldName}: ${text}`;
+      p.innerHTML = `${fieldName}: ${text}`;
     }
   return p
 }
@@ -46,6 +46,12 @@ function createArticle() {
   const p = document.createElement("p");
   p.className = "learn-more";
   p.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  return p;
+}
+
+function createProfile(url, username) {
+  const p = document.createElement("p");
+  p.innerHTML = `Profile: <a href=${url}>${username}</a>`;
   return p;
 }
 
@@ -82,12 +88,7 @@ function createUserCard(data) {
   const header = createHeader(data.name)
   const p1 = createParagraph(data.login, "Username", className="username")
   const p2 = createParagraph(data.location, "Location")
-
-  const link = createLink(data.html_url, data.login);
-  
-  const p3 = createParagraph(link, "Profile")
-  p3.appendChild(link)
-
+  const p3 = createProfile(data.html_url, data.login)
   const p4 = createParagraph(data.followers,"Followers");
   const p5 = createParagraph(data.following, "Following");
   const p6 = createParagraph(data.bio, "Bio")
